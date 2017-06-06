@@ -2,7 +2,8 @@
 <?php
 require_once 'connection.php';
 require_once 'src/User.php';
-//require_once 'src/message.php';
+require_once 'src/Tweet.php';
+
 
 session_start();
 
@@ -42,9 +43,9 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
                 <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="loggedUser.php">Start<span style="font-size:16px;"
-                                                                       class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a>
+                                                                               class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a>
                         </li>
-                        <li><a href="#diab">Nowy Tweet<span style="font-size:16px;"
+                        <li><a href="newTweet.php">Nowy Tweet<span style="font-size:16px;"
                                                             class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a>
                         </li>
                         <li><a href="#diet">Wyślij wiadomość<span style="font-size:16px;"
@@ -57,12 +58,43 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
                                                             class="pull-right hidden-xs showopacity glyphicon glyphicon-search"></span></a>
                         </li>
                         <li><a href="web/logout.php">Wyloguj<span style="font-size:16px;"
-                                                     class="pull-right hidden-xs showopacity glyphicon glyphicon-remove"></span></a>
+                                                                  class="pull-right hidden-xs showopacity glyphicon glyphicon-remove"></span></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+    </div>
+</div>
+<?php
+$result = Tweet::loadAllTweets($connection);
+var_dump($result);
+
+?>
+<div class="col-md-12" id="mainer">
+    <div class="col-md-2" id="fotka">
+
+    </div>
+    <div class="col-md-10" id="rest">
+        <div class="col-md-12">
+            <div class="col-md-6" id="date">
+
+            </div>
+            <div class="col-md-6" id="author">
+
+            </div>
+        </div>
+        <div class="col-md-12" id="text">
+
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-6" id="mail">
+
+            </div>
+            <div class="col-md-6" id="comment">
+
+            </div>
+        </div>
     </div>
 </div>
 </body>

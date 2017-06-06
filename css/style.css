@@ -1,6 +1,7 @@
 body,html{
     height: 100%;
     background-image: url("../photo/WP3B9W3Q.jpg");
+    background-attachment: fixed;
 }
 
 /* remove outer padding */
@@ -151,4 +152,43 @@ nav:hover .forAnimate{
 
 #mainUnlogged a button:first-child {
     margin-bottom: 10px;
+}
+
+#mainer {
+    margin-left: 13.2em;
+    width: 70%;
+}
+
+#fotka {
+    background-color: red;
+    height: 180px;
+}
+
+#rest {
+    height: 180px;
+}
+
+#date {
+    background-color: palegoldenrod;
+    height: 30px;
+}
+
+#author {
+    background-color: salmon;
+    height: 30px;
+}
+
+#text {
+    background-color: #ffff00;
+    height: 120px;
+}
+
+#mail {
+    background-color: purple;
+    height: 30px;
+}
+
+#comment {
+    background-color: greenyellow;
+    height: 30px;
 }

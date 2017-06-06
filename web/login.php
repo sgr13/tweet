@@ -7,10 +7,10 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "chuj";
     if (isset($_POST['username']) && isset($_POST['password'])) {
-        var_dump($_POST);
         $username = $_POST['username'];
         $password = $_POST['password'];
         $user = User::loadUserByUsername($connection, $username);
+        $_SESSION['userId'] = $user->getId();
 
         if (FALSE === $user) {
             echo '<p>Incorrect !username! or password</p>';
