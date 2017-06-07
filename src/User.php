@@ -50,18 +50,35 @@ class User
             } else {
                 die("Error: user not saved: " . $connection->error);
             }
+        } else {
+            $username = $this->username;
+            $password = $this->password;
+            $id = $this->id;
+
+            $sql = "UPDATE user SET username ='$username', password='$password' WHERE id=$id";
+
+            $result = $connection->query($sql);
+
+            if($result == true){
+                return true;
+            }
+            echo "chuj";
+            return false;
+
         }
     }
 
     static public function loadUserByUsername(mysqli $conn, $username)
     {
-        $username = $conn->real_escape_string($username);   /// ????
+
+        //$username = $conn->real_escape_string($username);
+        echo "username w USer:<br>";
 
         $sql = "SELECT * FROM `user` WHERE `username` = '$username'";
 
         $result = $conn->query($sql);
 
-
+        echo "Result w User<br>";
 
         if (!$result) {
             die("ERROR" . $conn->connect_errno);

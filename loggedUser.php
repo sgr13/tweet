@@ -51,7 +51,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
                         <li><a href="#diet">Wyślij wiadomość<span style="font-size:16px;"
                                                                   class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a>
                         </li>
-                        <li><a href="#car">Moje konto<span style="font-size:16px;"
+                        <li><a href="account.php">Moje konto<span style="font-size:16px;"
                                                            class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         </li>
                         <li><a href="#register">Szukaj<span style="font-size:16px;"
@@ -66,36 +66,69 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
         </nav>
     </div>
 </div>
+
 <?php
 $result = Tweet::loadAllTweets($connection);
-var_dump($result);
+//        var_dump($result);
+foreach($result as $value) {
+    ?>
 
-?>
 <div class="col-md-12" id="mainer">
-    <div class="col-md-2" id="fotka">
+    <div class="col-md-1">
 
     </div>
-    <div class="col-md-10" id="rest">
+    <div class="col-md-8" id="rest">
         <div class="col-md-12">
             <div class="col-md-6" id="date">
-
+                <?php echo $value->getcreationDate(); ?>
             </div>
             <div class="col-md-6" id="author">
-
+                <?php echo $value->getuserId(); ?>
             </div>
         </div>
         <div class="col-md-12" id="text">
-
+            <?php echo $value->gettext(); ?>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 down">
             <div class="col-md-6" id="mail">
-
+                Napisz wiadomość:
             </div>
-            <div class="col-md-6" id="comment">
-
+            <div class="col-md-6 commentButtonDiv">
+               Komentarze: <button class="commentButton" style="font-size: 90%; height: 30px">Pokaż</button><br>
             </div>
         </div>
     </div>
+    <div class="col-md-3 commentMain" >
+        <div class="col-md-12" id="commentHeader">
+            Komentarze:
+        </div>
+        <div class="col-md-12" id="commentText">
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahahhahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+            hahahahah
+        </div>
+        <div class="col-md-12" id="commentAdd">
+            <a href="addComment.php"><button>Dodaj</button></a>
+        </div>
+    </div>
+
 </div>
+<?php } ?>
 </body>
 </html>

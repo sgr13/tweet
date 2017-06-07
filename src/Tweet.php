@@ -70,7 +70,7 @@ class Tweet
 
     static public function loadAllTweets(mysqli $connection)
     {
-        $sql = "SELECT * FROM user u LEFT JOIN tweet t ON u.id = t.user_id";
+        $sql = "SELECT * FROM user u LEFT JOIN tweet t ON u.id = t.user_id ORDER BY creation_date DESC LIMIT 100 ";
 
         $table = [];
 

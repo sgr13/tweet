@@ -2,7 +2,6 @@ $(document).ready(function () {
 
     var p1 = $("#wtf");
     var offset1 = p1.offset();
-    console.log(offset1);
 
     $('#wtf').animate({right: "+=150"}, 1);
 
@@ -13,7 +12,6 @@ $(document).ready(function () {
     $('#wtf').mouseover(function() {
         var p1 = $("#wtf");
         var offset2 = p1.offset();
-        console.log(offset1);
         $("#wtf").offset({ top: offset2.top, left: offset1.left});
     })
 
@@ -27,6 +25,26 @@ $(document).ready(function () {
     $('.nav li').click(function () {
         $('.nav li').removeClass('active');
         $(this).addClass('active');
+    })
+
+    $('.commentMain').hide();
+
+    $('.commentButton').click(function () {
+        console.log($(this).parent().parent().parent().next());
+
+        if (!$(this).parent().parent().parent().next().hasClass('visible')) {
+            console.log("nie widze");
+            $(this).parent().parent().parent().next().show();
+            $(this).parent().parent().parent().next().addClass('visible');
+            console.log($(this));
+            $(this).html('Ukryj');
+        } else {
+            console.log("widze");
+            $(this).parent().parent().parent().next().hide();
+            $(this).parent().parent().parent().next().removeClass('visible');
+            $(this).html('Pokaż');
+            console.log($(this));
+        }
     })
 
 });

@@ -155,8 +155,15 @@ nav:hover .forAnimate{
 }
 
 #mainer {
-    margin-left: 13.2em;
+    margin-left: 10.2em;
     width: 70%;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-right: 0px;
+}
+
+#mainer:first-child {
+    margin-top: 20px;
 }
 
 #fotka {
@@ -169,7 +176,7 @@ nav:hover .forAnimate{
 }
 
 #date {
-    background-color: palegoldenrod;
+    background-color: salmon;
     height: 30px;
 }
 
@@ -181,6 +188,8 @@ nav:hover .forAnimate{
 #text {
     background-color: #ffff00;
     height: 120px;
+    width: 94%;
+    margin-left: 16px;
 }
 
 #mail {
@@ -188,7 +197,41 @@ nav:hover .forAnimate{
     height: 30px;
 }
 
-#comment {
+.commentButtonDiv {
+    padding-left: 50px;
     background-color: greenyellow;
+    z-index: 100;
+}
+
+.commentButtonDiv p {
+    padding-right: 0px;
+}
+
+#wtf {
+    background-color: #1b6d85;
+    height: 10px;
+}
+
+#text2 {
+    background-color: deeppink;
+    height: 120px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#commentAdd {
+    background-color: purple;
     height: 30px;
+}
+
+#commentHeader {
+    background-color: salmon;
+    height: 30px;
+}
+
+#commentText {
+    background-color: #ffff00;
+    height: 120px;
+    overflow: auto;
+    font-size: 80%;
 }
