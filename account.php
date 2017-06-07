@@ -34,9 +34,9 @@ $password = $user->getPassword();
         <div id="mainUnlogged">
             <form action="#" method="post">
                 <p>Zmień login:</p>
-                <input type="text" name="name" value=" <?php echo $oldName; ?>">
+                <input type="text" name="name" value="<?php echo $oldName; ?>">
                 <p>Podaj nowe hasło</p>
-                <input type="password" name="password" value=" <?php echo $password; ?>">
+                <input type="password" name="password" value="<?php echo $password; ?>">
                 <input type="submit" value="Zmień">
                 <input type="hidden" value="<?php echo $oldName; ?>" name="hiddenName">
             </form>

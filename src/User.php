@@ -71,14 +71,11 @@ class User
     static public function loadUserByUsername(mysqli $conn, $username)
     {
 
-        //$username = $conn->real_escape_string($username);
-        echo "username w USer:<br>";
+        $username = $conn->real_escape_string($username);
 
         $sql = "SELECT * FROM `user` WHERE `username` = '$username'";
 
         $result = $conn->query($sql);
-
-        echo "Result w User<br>";
 
         if (!$result) {
             die("ERROR" . $conn->connect_errno);
