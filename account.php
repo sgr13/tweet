@@ -32,29 +32,24 @@ $password = $user->getPassword();
 <body>
     <div id="container">
         <div id="mainUnlogged">
-            <form action="#" method="post">
-                <p>Zmień login:</p>
-                <input type="text" name="name" value="<?php echo $oldName; ?>">
-                <p>Podaj nowe hasło</p>
-                <input type="password" name="password" value="<?php echo $password; ?>">
-                <input type="submit" value="Zmień">
-                <input type="hidden" value="<?php echo $oldName; ?>" name="hiddenName">
-            </form>
+            <p>Zmień login i hasło:</p><button id="dataChangeBtn">Zmień</button>
+        </div>
+        <div id="">
+            <div id="dataChange">
+                <form action="dataChange.php" method="post">
+                    <p>Zmień login:</p>
+                    <input type="text" name="name" value="<?php echo $oldName; ?>">
+                    <p>Podaj nowe hasło</p>
+                    <input type="password" name="password" value="<?php echo $password; ?>">
+                    <input type="submit" value="Zmień">
+                    <input type="hidden" value="<?php echo $oldName; ?>" name="hiddenName">
+                </form>
+            </div>
+        </div>
+        <div id="mainUnlogged">
+            <p>Pokaż wszystkie wiadomości:</p>
+            <a href="showMessage"><button>Pokaż</button></a>
         </div>
     </div>
 </body>
-
-<?php
-    if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        if (isset($_POST['name']) || isset($_SERVER['password'])) {
-
-            $oldName = ($_POST['hiddenName']);
-            $user = User::loadUserByUsername($connection, $oldName);
-
-            $user->setUsername($_POST['name']);
-            $user->setPassword($_POST['password']);
-            $user->save($connection);
-        }
-    }
-?>
 </html>

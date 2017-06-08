@@ -79,7 +79,7 @@ class Comment
 
     static public function loadAllCommentsByPostId(mysqli $connection, $tweetId)
     {
-        $sql = "SELECT * FROM comment c LEFT JOIN user u ON u.id = c.user_id ORDER BY creation_date DESC LIMIT 20 ";
+        $sql = "SELECT * FROM comment c LEFT JOIN user u ON u.id = c.user_id WHERE tweet_id=$tweetId ORDER BY creation_date DESC LIMIT 20 ";
 
         $table = [];
 
@@ -90,11 +90,21 @@ class Comment
                 $newComment = new Comment();
                 $newComment->id = $row['id'];
                 $newComment->userId = $row['username'];
-                $newComment->text = $row['text'];
+                $newComment->comment = $row['comment'];
                 $newComment->creationDate = $row['creation_date'];
+                $newComment->tweetId = $row['tweet_id'];
 
                 $table[] = $newComment;
             }
+            return $table;
+        } else {
+            $newComment = new Comment();
+            $newComment->userId = '';
+            $newComment->comment = '';
+            $newComment->creationDate = '';
+            $newComment->tweetId = '';
+
+            $table[] = $newComment;
             return $table;
         }
     }

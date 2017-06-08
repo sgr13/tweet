@@ -3,6 +3,7 @@
 require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
+require_once 'src/Comment.php';
 
 
 session_start();
@@ -48,7 +49,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
                         <li><a href="newTweet.php">Nowy Tweet<span style="font-size:16px;"
                                                             class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a>
                         </li>
-                        <li><a href="#diet">Wyślij wiadomość<span style="font-size:16px;"
+                        <li><a href="sendMessageForm.php">Wyślij wiadomość<span style="font-size:16px;"
                                                                   class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a>
                         </li>
                         <li><a href="account.php">Moje konto<span style="font-size:16px;"
@@ -69,7 +70,6 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 
 <?php
 $result = Tweet::loadAllTweets($connection);
-        var_dump($result);
 foreach($result as $value) {
     $id = $value->getId();
     ?>
@@ -103,30 +103,31 @@ foreach($result as $value) {
         <div class="col-md-12" id="commentHeader">
             Komentarze:
         </div>
+        <?php
+
+        $result2 = Comment::loadAllCommentsByPostId($connection, $id);
+        ?>
         <div class="col-md-12" id="commentText">
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahahhahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
-            hahahahah
+        <?php
+        foreach($result2 as $value) {
+        ?>
+
+            <span>
+                <?php echo $value->getUserId();?><br>
+            </span>
+            <span>
+                <?php echo $value->getComment();?><br>
+            </span>
+            <span>
+                <?php echo $value->getCreationDate();?><br>
+            </span>
+            <hr>
+        <?php }?>
         </div>
         <div class="col-md-12" id="commentAdd">
             <a href="addComment.php?id=<?php echo $id;?>"><button>Dodaj</button></a>
         </div>
+
     </div>
 
 </div>

@@ -30,20 +30,30 @@ $(document).ready(function () {
     $('.commentMain').hide();
 
     $('.commentButton').click(function () {
-        console.log($(this).parent().parent().parent().next());
-
         if (!$(this).parent().parent().parent().next().hasClass('visible')) {
-            console.log("nie widze");
             $(this).parent().parent().parent().next().show();
             $(this).parent().parent().parent().next().addClass('visible');
-            console.log($(this));
             $(this).html('Ukryj');
         } else {
-            console.log("widze");
             $(this).parent().parent().parent().next().hide();
             $(this).parent().parent().parent().next().removeClass('visible');
             $(this).html('Pokaż');
-            console.log($(this));
+        }
+    })
+
+    $('#dataChange').hide();
+
+    $('#dataChangeBtn').click(function() {
+        if (!$(this).parent().next().children().hasClass('visible')) {
+            $(this).parent().next().attr('id', 'mainUnlogged');
+            $(this).parent().next().children().show();
+            $(this).html('Ukryj');
+            $(this).parent().next().children().addClass('visible');
+        } else {
+            $(this).parent().next().children().hide();
+            $(this).html('Zmień');
+            $(this).parent().next().children().removeClass('visible');
+            $(this).parent().next().attr('id', '');
         }
     })
 

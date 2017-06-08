@@ -2,7 +2,8 @@
 <?php
 require_once 'connection.php';
 require_once 'src/User.php';
-//require_once 'src/message.php';
+require_once 'src/Tweet.php';
+
 
 session_start();
 
@@ -16,7 +17,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale = 1">
 
-    <title>Manuela Drozd-Sypień</title>
+    <title>Twitterek</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css?h=1" rel="stylesheet">
     <script src="js/jquery.js"></script>
@@ -24,15 +25,13 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <script src="js/style.js"></script>
 </head>
 <body>
-    <div id="container">
-        <div id="mainUnlogged">
-            <form action="tweetCreation.php" method="post">
-                <p>Formularz nowego tweeta:</p>
-                <p>Treść tweeta</p>
-                <textarea name="text"></textarea><br>
-                <input type="submit" value="Wyślij">
-            </form>
-        </div>
-    </div>
+<?php
+$sql = "SELECT * FROM message m LEFT JOIN user u ON m.receiver_id=u.id";
+$result = $connection->query($sql);
+
+if (!$result) {
+    die ("Bład zapisu do bazy danych" . $connection->error);
+}
+?>
 </body>
 </html>
