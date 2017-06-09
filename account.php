@@ -48,7 +48,7 @@ $password = $user->getPassword();
         </div>
         <div id="mainUnlogged">
             <p>Pokaż wszystkie wiadomości:</p>
-            <a href="showMessage"><button>Pokaż</button></a>
+            <a href="showMessage.php"><button>Pokaż</button></a>
         </div>
     </div>
 </body>

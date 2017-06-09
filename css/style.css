@@ -238,3 +238,22 @@ nav:hover .forAnimate{
     overflow: auto;
     font-size: 80%;
 }
+
+table td {
+    color: black;
+    padding: 10px;
+    border: solid 3px #000000;
+}
+
+table th {
+    color: black;
+    padding: 10px;
+    border: solid 3px #000000;
+
+}
+
+#messageDiv {
+    width: 30%;
+    margin-left: 15%;
+    float: left;
+}

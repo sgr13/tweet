@@ -62,7 +62,6 @@ class User
             if($result == true){
                 return true;
             }
-            echo "chuj";
             return false;
 
         }
