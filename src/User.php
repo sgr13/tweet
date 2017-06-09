@@ -97,6 +97,31 @@ class User
 
     }
 
+    public function delete(mysqli $connection)
+    {
+        if ($this->id != -1) {
+
+            $sql = "DELETE FROM message WHERE sender_id=$this->id AND receiver_id=$this->id ";
+            $result = $connection->query($sql);
+
+            $sql = "DELETE FROM comment WHERE user_id=$this->id";
+            $result = $connection->query($sql);
+
+            $sql = "DELETE FROM tweet WHERE user_id=$this->id";
+            $result = $connection->query($sql);
+
+            $sql = "DELETE FROM user WHERE id=$this->id";
+            $result = $connection->query($sql);
+
+            if ($result == true) {
+                $this->id = -1;
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     function getPassword()
     {
         return $this->password;

@@ -50,6 +50,20 @@ $password = $user->getPassword();
             <p>Pokaż wszystkie wiadomości:</p>
             <a href="showMessage.php"><button>Pokaż</button></a>
         </div>
+        <div id="mainUnlogged">
+            <p>Pokaż wszystkie Tweety:</p>
+            <a href="showAllTweetsById.php"><button>Pokaż</button></a>
+        </div>
+        <div id="mainUnlogged">
+            <p>Usuń swoje konto.</p>
+            <button id="deleteBtn">Usuń</button>
+        </div>
+        <div id="">
+            <div id="deleteUser">
+                <p>Jesteś Pewny??</p>
+                <a href="deleteUser.php"><button>Tak, usuń</button></a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

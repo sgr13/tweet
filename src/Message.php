@@ -12,6 +12,8 @@ class Message
 
     private $text;
 
+    private $creationDate;
+
     function __construct()
     {
         $this->id = -1;
@@ -19,6 +21,17 @@ class Message
         $this->receiverId = '';
         $this->status = 0;
         $this->text = '';
+        $this->creationDate='';
+    }
+
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
     }
 
     public function getText()
@@ -73,8 +86,9 @@ class Message
             $receiverId = $this->receiverId;
             $status = $this->status;
             $text = $this->text;
+            $date = $this->creationDate;
 
-            $sql = "INSERT INTO message(sender_id, receiver_id, status, text) VALUES('$senderId', '$receiverId', '$status', '$text')";
+            $sql = "INSERT INTO message(sender_id, receiver_id, status, text, creationDate) VALUES('$senderId', '$receiverId', '$status', '$text', '$date')";
 
             $result = $connection->query($sql);
 

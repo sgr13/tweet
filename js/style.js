@@ -57,4 +57,21 @@ $(document).ready(function () {
         }
     })
 
+    $('#deleteUser').hide();
+
+    $('#deleteBtn').click(function() {
+        if (!$(this).parent().next().children().hasClass('visible')) {
+            $(this).parent().next().attr('id', 'mainUnlogged');
+            $(this).parent().next().children().show();
+            $(this).html('Anuluj');
+            $(this).parent().next().children().addClass('visible');
+        } else {
+            $(this).parent().next().children().hide();
+            $(this).html('Usuń');
+            $(this).parent().next().children().removeClass('visible');
+            $(this).parent().next().attr('id', '');
+        }
+    })
+
+
 });

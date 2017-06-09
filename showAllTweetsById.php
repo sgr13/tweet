@@ -47,13 +47,13 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
                                                                                class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a>
                         </li>
                         <li><a href="newTweet.php">Nowy Tweet<span style="font-size:16px;"
-                                                            class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a>
+                                                                   class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a>
                         </li>
                         <li><a href="sendMessageForm.php">Wyślij wiadomość<span style="font-size:16px;"
-                                                                  class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a>
+                                                                                class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a>
                         </li>
                         <li><a href="account.php">Moje konto<span style="font-size:16px;"
-                                                           class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                                                                  class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                         </li>
                         </li>
                         <li><a href="web/logout.php">Wyloguj<span style="font-size:16px;"
@@ -67,69 +67,77 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 </div>
 
 <?php
-$result = Tweet::loadAllTweets($connection);
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+    if (isset($_GET['name'])) {
+        $user = User::loadUserByUsername($connection, $_GET['name']);
+        $id = $user->getId();
+        $result = Tweet::loadAllTweetsByUserId($connection,$id);
+    }
+} else {
+    $result = Tweet::loadAllTweetsByUserId($connection, $_SESSION['user']);
+}
+
 foreach($result as $value) {
-    $name=$value->getuserId();
     $id = $value->getId();
     ?>
 
-<div class="col-md-12" id="mainer">
-    <div class="col-md-1">
+    <div class="col-md-12" id="mainer">
+        <div class="col-md-1">
 
-    </div>
-    <div class="col-md-8" id="rest">
-        <div class="col-md-12">
-            <div class="col-md-6" id="date">
-                <?php echo $value->getcreationDate(); ?>
+        </div>
+        <div class="col-md-8" id="rest">
+            <div class="col-md-12">
+                <div class="col-md-6" id="date">
+                    <?php echo $value->getcreationDate(); ?>
+                </div>
+                <div class="col-md-6" id="author">
+                    <?php echo $value->getuserId(); ?>
+                </div>
             </div>
-            <div class="col-md-6" id="author">
-                <?php echo '<a href="showAllTweetsById.php?name=' . $name . '"><button>' . $value->getuserId() . '</button></a>' ; ?>
+            <div class="col-md-12" id="text">
+                <?php echo $value->gettext(); ?>
+            </div>
+            <div class="col-md-12 down">
+                <div class="col-md-6" id="mail">
+                    Napisz wiadomość:
+                </div>
+                <div class="col-md-6 commentButtonDiv">
+                    Komentarze: <button class="commentButton" style="font-size: 90%; height: 30px">Pokaż</button><br>
+                </div>
             </div>
         </div>
-        <div class="col-md-12" id="text">
-            <?php echo $value->gettext(); ?>
-        </div>
-        <div class="col-md-12 down">
-            <div class="col-md-6" id="mail">
-                Napisz wiadomość:
+        <div class="col-md-3 commentMain" >
+            <div class="col-md-12" id="commentHeader">
+                Komentarze:
             </div>
-            <div class="col-md-6 commentButtonDiv">
-               Komentarze: <button class="commentButton" style="font-size: 90%; height: 30px">Pokaż</button><br>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 commentMain" >
-        <div class="col-md-12" id="commentHeader">
-            Komentarze:
-        </div>
-        <?php
+            <?php
 
-        $result2 = Comment::loadAllCommentsByPostId($connection, $id);
-        ?>
-        <div class="col-md-12" id="commentText">
-        <?php
-        foreach($result2 as $value) {
-        ?>
+            $result2 = Comment::loadAllCommentsByPostId($connection, $id);
+            ?>
+            <div class="col-md-12" id="commentText">
+                <?php
+                foreach($result2 as $value) {
+                    ?>
 
-            <span>
+                    <span>
                 <?php echo $value->getUserId();?><br>
             </span>
-            <span>
+                    <span>
                 <?php echo $value->getComment();?><br>
             </span>
-            <span>
+                    <span>
                 <?php echo $value->getCreationDate();?><br>
             </span>
-            <hr>
-        <?php }?>
-        </div>
-        <div class="col-md-12" id="commentAdd">
-            <a href="addComment.php?id=<?php echo $id;?>"><button>Dodaj</button></a>
+                    <hr>
+                <?php }?>
+            </div>
+            <div class="col-md-12" id="commentAdd">
+                <a href="addComment.php?id=<?php echo $id;?>"><button>Dodaj</button></a>
+            </div>
+
         </div>
 
     </div>
-
-</div>
 <?php } ?>
 </body>
 </html>

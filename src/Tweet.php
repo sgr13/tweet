@@ -58,13 +58,27 @@ class Tweet
         $this->creationDate = $creationDate;
     }
 
-    static public function loadTweetById(mysqli $connection, $id)
+    static public function loadAllTweetsByUserId(mysqli $connection, $userIdd)
     {
 
-    }
+        $sql = "SELECT * FROM user u LEFT JOIN tweet t ON u.id = t.user_id WHERE u.id=$userIdd ORDER BY creation_date DESC LIMIT 100";
 
-    static public function loadAllTweetsByUserId(mysqli $connection, $userId)
-    {
+        $table = [];
+
+        $result = $connection->query($sql);
+
+        if($result == true && $result->num_rows != 0){
+            foreach($result as $row) {
+                $newTweet = new Tweet();
+                $newTweet->id = $row['id'];
+                $newTweet->userId = $row['username'];
+                $newTweet->text = $row['text'];
+                $newTweet->creationDate = $row['creation_date'];
+
+                $table[] = $newTweet;
+            }
+            return $table;
+        }
 
     }
 
