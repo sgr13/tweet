@@ -133,15 +133,6 @@ nav:hover .forAnimate{
     padding-bottom: 30px;
 }
 
-.diabList {
-    text-decoration: underline;
-    padding-top: 8px;
-}
-
-.shadowText {
-    text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
-}
-
 #mainUnlogged {
     margin-left: 32em;
     width: 250px;
@@ -169,40 +160,36 @@ nav:hover .forAnimate{
     margin-top: 20px;
 }
 
-#fotka {
-    background-color: red;
-    height: 180px;
-}
-
 #rest {
     height: 180px;
+    background-image: url("../photo/paper.png");
 }
 
 #date {
-    background-color: salmon;
+    //background-color: salmon;
     height: 30px;
 }
 
 #author {
-    background-color: salmon;
+    //background-color: salmon;
     height: 30px;
 }
 
 #text {
-    background-color: #ffff00;
+    //background-color: #ffff00;
     height: 120px;
     width: 94%;
     margin-left: 16px;
 }
 
 #mail {
-    background-color: purple;
+   // background-color: purple;
     height: 30px;
 }
 
 .commentButtonDiv {
     padding-left: 50px;
-    background-color: greenyellow;
+    //background-color: greenyellow;
     z-index: 100;
 }
 
@@ -223,17 +210,19 @@ nav:hover .forAnimate{
 }
 
 #commentAdd {
-    background-color: purple;
+    background-image: url("../photo/paper.png");
     height: 30px;
+    color: #ffffff;
 }
 
 #commentHeader {
-    background-color: salmon;
+    background-image: url("../photo/paper.png");
     height: 30px;
+    color: black;
 }
 
 #commentText {
-    background-color: #ffff00;
+    background-image: url("../photo/commenPaper.jpg");
     height: 120px;
     overflow: auto;
     font-size: 80%;
@@ -254,6 +243,14 @@ table th {
 
 #messageDiv {
     width: 30%;
-    margin-left: 15%;
+    margin-left: 18%;
     float: left;
+}
+
+#messageDiv:last-child {
+    margin-left: 6%;
+}
+
+#header p {
+    margin-left: 60px;
 }

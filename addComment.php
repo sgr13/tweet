@@ -3,6 +3,7 @@
 require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
+require_once 'src/showSideBar.php';
 
 
 session_start();
@@ -25,6 +26,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <script src="js/style.js"></script>
 </head>
 <body>
+<?php showSideBar::SideBar(); ?>
 <div id="container">
     <div id="header">
         <p><i><b>TWITEREK</b></i></p>
@@ -41,9 +43,9 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
                     <p>Wpisz swój komentarz(max. il. znaków : 60)</p>
                     <textarea name="comment" maxlength="60"></textarea>
                     <input type="submit" value="Wyślij">
-                    <input type="hidden" value="<?php echo $id;?>" name="id">
+                    <input type="hidden" value="<?php echo $id; ?>" name="id">
                 </form>
-                <?php
+            <?php
             }
         }
         ?>

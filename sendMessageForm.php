@@ -4,6 +4,7 @@ require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
+require_once 'src/showSideBar.php';
 
 
 session_start();
@@ -27,6 +28,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 </head>
 <body>
 <?php
+showSideBar::SideBar();
 $sql = "SELECT * FROM user";
 $result = $connection->query($sql);
 
@@ -35,9 +37,6 @@ if (!$result) {
 }
 ?>
 <div id="container">
-    <div id="header">
-        <p><i><b>TWITEREK</b></i></p>
-    </div>
     <div id="mainUnlogged">
         <p>Wybierz adresata:</p>
 

@@ -2,7 +2,7 @@
 <?php
 require_once 'connection.php';
 require_once 'src/User.php';
-//require_once 'src/message.php';
+require_once 'src/showSideBar.php';
 
 session_start();
 
@@ -24,6 +24,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <script src="js/style.js"></script>
 </head>
 <body>
+<?php showSideBar::SideBar();?>
     <div id="container">
         <div id="mainUnlogged">
             <form action="tweetCreation.php" method="post">

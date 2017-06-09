@@ -3,6 +3,7 @@
 require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
+require_once 'src/showSideBar.php';
 
 
 session_start();
@@ -30,6 +31,7 @@ $password = $user->getPassword();
     <script src="js/style.js"></script>
 </head>
 <body>
+<?php showSideBar::SideBar();?>
     <div id="container">
         <div id="mainUnlogged">
             <p>Zmień login i hasło:</p><button id="dataChangeBtn">Zmień</button>

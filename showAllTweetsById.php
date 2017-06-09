@@ -4,6 +4,7 @@ require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
+require_once 'src/showSideBar.php';
 
 
 session_start();
@@ -26,58 +27,19 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <script src="js/style.js"></script>
 </head>
 <body>
-<div id="cos">
-    <div id="hey">
-        <nav class="navbar navbar-inverse sidebar" role="navigation" id="wtf">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target="#bs-sidebar-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><span style="font-size:16px;"
-                                                           class="pull-right hidden-xs showopacity glyphicon glyphicon-expand"></span>TWITTEREK</a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="loggedUser.php">Start<span style="font-size:16px;"
-                                                                               class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a>
-                        </li>
-                        <li><a href="newTweet.php">Nowy Tweet<span style="font-size:16px;"
-                                                                   class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a>
-                        </li>
-                        <li><a href="sendMessageForm.php">Wyślij wiadomość<span style="font-size:16px;"
-                                                                                class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a>
-                        </li>
-                        <li><a href="account.php">Moje konto<span style="font-size:16px;"
-                                                                  class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
-                        </li>
-                        </li>
-                        <li><a href="web/logout.php">Wyloguj<span style="font-size:16px;"
-                                                                  class="pull-right hidden-xs showopacity glyphicon glyphicon-remove"></span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
-
 <?php
+showSideBar::SideBar();
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['name'])) {
         $user = User::loadUserByUsername($connection, $_GET['name']);
         $id = $user->getId();
-        $result = Tweet::loadAllTweetsByUserId($connection,$id);
+        $result = Tweet::loadAllTweetsByUserId($connection, $id);
     }
-} else {
+}
+if (!isset($_GET['name'])) {
     $result = Tweet::loadAllTweetsByUserId($connection, $_SESSION['user']);
 }
-
-foreach($result as $value) {
+foreach ($result as $value) {
     $id = $value->getId();
     ?>
 
@@ -102,11 +64,13 @@ foreach($result as $value) {
                     Napisz wiadomość:
                 </div>
                 <div class="col-md-6 commentButtonDiv">
-                    Komentarze: <button class="commentButton" style="font-size: 90%; height: 30px">Pokaż</button><br>
+                    Komentarze:
+                    <button class="commentButton" style="font-size: 90%; height: 30px">Pokaż</button>
+                    <br>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 commentMain" >
+        <div class="col-md-3 commentMain">
             <div class="col-md-12" id="commentHeader">
                 Komentarze:
             </div>
@@ -116,28 +80,33 @@ foreach($result as $value) {
             ?>
             <div class="col-md-12" id="commentText">
                 <?php
-                foreach($result2 as $value) {
+                foreach ($result2 as $value) {
                     ?>
 
                     <span>
-                <?php echo $value->getUserId();?><br>
+                <?php echo $value->getUserId(); ?><br>
             </span>
                     <span>
-                <?php echo $value->getComment();?><br>
+                <?php echo $value->getComment(); ?><br>
             </span>
                     <span>
-                <?php echo $value->getCreationDate();?><br>
+                <?php echo $value->getCreationDate(); ?><br>
             </span>
                     <hr>
-                <?php }?>
+                <?php } ?>
             </div>
             <div class="col-md-12" id="commentAdd">
-                <a href="addComment.php?id=<?php echo $id;?>"><button>Dodaj</button></a>
+                <a href="addComment.php?id=<?php echo $id; ?>">
+                    <button>Dodaj</button>
+                </a>
             </div>
 
         </div>
 
     </div>
-<?php } ?>
+<?php
+}
+$connection->close();
+?>
 </body>
 </html>

@@ -3,6 +3,7 @@
 require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
+require_once 'src/showSideBar.php';
 
 
 session_start();
@@ -25,32 +26,33 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <script src="js/style.js"></script>
 </head>
 <body>
+<?php showSideBar::SideBar(); ?>
 <div id="messageDiv">
-<h3>Wiadomości wysłane:</h3>
-<?php
-$userId = $_SESSION['user'];
-$sql = "SELECT * FROM user u LEFT JOIN message m ON m.receiver_id=u.id WHERE m.sender_id=$userId ORDER BY creationDate DESC";
-$result = $connection->query($sql);
+    <h3>Wiadomości wysłane:</h3>
+    <?php
+    $userId = $_SESSION['user'];
+    $sql = "SELECT * FROM user u LEFT JOIN message m ON m.receiver_id=u.id WHERE m.sender_id=$userId ORDER BY creationDate DESC";
+    $result = $connection->query($sql);
 
-if (!$result) {
-    die ("Bład zapisu do bazy danych" . $connection->error);
-}
+    if (!$result) {
+        die ("Bład zapisu do bazy danych" . $connection->error);
+    }
 
-echo "<table>";
+    echo "<table>";
     echo "<tr>";
-        echo "<th>Data</th><th>Adresat</th><th>Przeczytaj</th>";
+    echo "<th>Data</th><th>Adresat</th><th>Przeczytaj</th>";
     echo "</tr>";
     $i = 1;
     foreach ($result as $value) {
-    $id = $value['id'];
-    echo "<tr>";
+        $id = $value['id'];
+        echo "<tr>";
         $id = $value['id'];
         echo "<td>" . $value['creationDate'] . "</td><td>" . $value['username'] . "</td>";
         echo "<td><a href='readMessage.php?id=$id'>Pokaż</a></td>";
     }
 
     echo "</table>";
-?>
+    ?>
 </div>
 
 <div id="messageDiv">
@@ -89,6 +91,7 @@ echo "<table>";
         }
     }
     echo "</table>";
+    $connection->close();
     ?>
 </div>
 </body>
