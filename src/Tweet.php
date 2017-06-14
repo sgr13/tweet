@@ -58,7 +58,7 @@ class Tweet
         $this->creationDate = $creationDate;
     }
 
-    static public function loadAllTweetsByUserId(mysqli $connection, $userIdd)
+    public static function loadAllTweetsByUserId(mysqli $connection, $userIdd)
     {
         $userIdd = intval($userIdd);
 
@@ -83,7 +83,7 @@ class Tweet
 
     }
 
-    static public function loadAllTweets(mysqli $connection)
+    public static function loadAllTweets(mysqli $connection)
     {
         $sql = "SELECT * FROM user u LEFT JOIN tweet t ON u.id = t.user_id ORDER BY creation_date DESC LIMIT 100 ";
 
@@ -111,6 +111,7 @@ class Tweet
             $text = $this->text;
             $creationDate = $this->creationDate;
             $userId = $this->userId;
+            $userId = intval($userId);
 
             $sql = "INSERT INTO tweet(user_id, text, creation_date) VALUES('$userId', '$text', '$creationDate')";
 

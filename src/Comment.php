@@ -71,13 +71,7 @@ class Comment
         $this->comment = $comment;
     }
 
-
-    static public function loadCommentById()
-    {
-
-    }
-
-    static public function loadAllCommentsByPostId(mysqli $connection, $tweetId)
+    public static function loadAllCommentsByPostId(mysqli $connection, $tweetId)
     {
         $tweetId = intval($tweetId);
 

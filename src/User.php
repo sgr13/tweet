@@ -68,7 +68,7 @@ class User
         }
     }
 
-    static public function loadUserByUsername(mysqli $conn, $username)
+    public static function loadUserByUsername(mysqli $conn, $username)
     {
 
         $username = $conn->real_escape_string($username);
