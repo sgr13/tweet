@@ -5,7 +5,6 @@ require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/showSideBar.php';
 
-
 session_start();
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
@@ -26,13 +25,14 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <script src="js/style.js"></script>
 </head>
 <body>
-<?php showSideBar::SideBar();?>
+<?php showSideBar::SideBar(); ?>
 <div id="container">
     <div id="mainUnlogged">
         <?php
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
             if (isset($_GET['id'])) {
-                $id= $_GET['id'];
+                $id = $_GET['id'];
+                $id = htmlentities($id);
 
                 $sql = "SELECT * FROM message WHERE id=$id";
                 $result = $connection->query($sql);

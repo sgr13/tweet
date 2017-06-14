@@ -35,10 +35,10 @@ class User
         $this->password = $password;
     }
 
-    public function save(mysqli $connection)          // to musi byc obiekt klasy mqsli , inny nie zostanie przyjety
+    public function save(mysqli $connection)
     {
         if (-1 === $this->id) {
-            $sql = sprintf("INSERT INTO `user` (`email`, `username`, `password`) VALUES ('%s', '%s', '%s')", //trzy stringi
+            $sql = sprintf("INSERT INTO `user` (`email`, `username`, `password`) VALUES ('%s', '%s', '%s')",
                 $this->email,
                 $this->username,
                 $this->password
@@ -46,7 +46,7 @@ class User
 
             $result = $connection->query($sql);
             if($result) {
-                $this->id = $connection->insert_id;  //id ostatnio wstawionego wiersza.
+                $this->id = $connection->insert_id;
             } else {
                 die("Error: user not saved: " . $connection->error);
             }
@@ -54,6 +54,7 @@ class User
             $username = $this->username;
             $password = $this->password;
             $id = $this->id;
+            $id = intval($id);
 
             $sql = "UPDATE user SET username ='$username', password='$password' WHERE id=$id";
 
@@ -100,6 +101,8 @@ class User
     public function delete(mysqli $connection)
     {
         if ($this->id != -1) {
+
+            $this->id = intval($this->id);
 
             $sql = "DELETE FROM message WHERE sender_id=$this->id AND receiver_id=$this->id ";
             $result = $connection->query($sql);

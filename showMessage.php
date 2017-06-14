@@ -5,7 +5,6 @@ require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/showSideBar.php';
 
-
 session_start();
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
@@ -31,6 +30,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <h3>Wiadomości wysłane:</h3>
     <?php
     $userId = $_SESSION['user'];
+    $userId = intval($userId);
     $sql = "SELECT * FROM user u LEFT JOIN message m ON m.receiver_id=u.id WHERE m.sender_id=$userId ORDER BY creationDate DESC";
     $result = $connection->query($sql);
 
@@ -59,6 +59,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <h3>Wiadomości odebrane:</h3>
     <?php
     $userId = $_SESSION['user'];
+    $userId = intval($userId);
     $sql = "SELECT * FROM user u LEFT JOIN message m ON m.sender_id=u.id WHERE m.receiver_id=$userId ORDER BY creationDate DESC";
     $result = $connection->query($sql);
 

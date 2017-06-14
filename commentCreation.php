@@ -5,7 +5,6 @@ require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
 
-
 session_start();
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
@@ -13,10 +12,10 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    echo "ok";
     if (isset($_POST['id'])) {
-        echo "dawaj";
         $id = $_POST['id'];
+        $id = htmlentities($id);
+
         $date = date("d.m.y H:i:s");
         $userId = $_SESSION['user'];
 
@@ -27,8 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $comment->setUserId($userId);
 
         $comment->saveToDB($connection);
-
-        var_dump($comment);
 
         header('Location: loggedUser.php');
     }

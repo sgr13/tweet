@@ -24,16 +24,17 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <script src="js/style.js"></script>
 </head>
 <body>
-<?php showSideBar::SideBar();?>
-    <div id="container">
-        <div id="mainUnlogged">
-            <form action="tweetCreation.php" method="post">
-                <p>Formularz nowego tweeta:</p>
-                <p>Treść tweeta</p>
-                <textarea name="text"></textarea><br>
-                <input type="submit" value="Wyślij">
-            </form>
-        </div>
+<?php showSideBar::SideBar(); ?>
+<div id="container">
+    <div id="mainUnlogged">
+        <form action="tweetCreation.php" method="post">
+            <p>Formularz nowego tweeta:</p>
+
+            <p>Treść tweeta</p>
+            <textarea name="text"></textarea><br>
+            <input type="submit" value="Wyślij">
+        </form>
     </div>
+</div>
 </body>
 </html>

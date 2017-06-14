@@ -60,6 +60,7 @@ class Tweet
 
     static public function loadAllTweetsByUserId(mysqli $connection, $userIdd)
     {
+        $userIdd = intval($userIdd);
 
         $sql = "SELECT * FROM user u LEFT JOIN tweet t ON u.id = t.user_id WHERE u.id=$userIdd ORDER BY creation_date DESC LIMIT 100";
 
@@ -116,7 +117,7 @@ class Tweet
             $result = $connection->query($sql);
 
             if($result) {
-                $this->id = $connection->insert_id;  //id ostatnio wstawionego wiersza.
+                $this->id = $connection->insert_id;
             } else {
                 die("Error: tweet not saved: " . $connection->error);
             }

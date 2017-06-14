@@ -83,7 +83,11 @@ class Message
     {
         if ($this->id == -1) {
             $senderId = $this->senderId;
+            $senderId = intval($senderId);
+
             $receiverId = $this->receiverId;
+            $receiverId = intval($receiverId);
+
             $status = $this->status;
             $text = $this->text;
             $date = $this->creationDate;

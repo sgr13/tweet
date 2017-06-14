@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $text = $_POST['text'];
         $date = date("d.m.y H:i:s");
 
+        $text = htmlentities($text);
+        $date = htmlentities($date);
+
         $tweet = new Tweet();
         $userId = $_SESSION['userId'];
 

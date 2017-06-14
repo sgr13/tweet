@@ -16,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['name']) || isset($_SERVER['password'])) {
 
         $oldName = ($_POST['hiddenName']);
+        $oldName = htmlentities($oldName);
+
         $user = User::loadUserByUsername($connection, $oldName);
 
         $user->setUsername($_POST['name']);

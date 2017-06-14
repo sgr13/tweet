@@ -2,7 +2,6 @@
 <?php
 require_once 'connection.php';
 require_once 'src/User.php';
-//require_once 'src/message.php';
 
 session_start();
 
@@ -16,7 +15,7 @@ if (isset($_SESSION['user']) && isset($_SESSION['userName'])) {
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale = 1">
 
-    <title>Manuela Drozd-Sypień</title>
+    <title>Twiterek</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css?h=1" rel="stylesheet">
     <script src="js/jquery.js"></script>

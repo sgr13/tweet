@@ -15,7 +15,11 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['text']) && isset($_POST['receiverSelection'])) {
         $text = $_POST['text'];
+        $text = htmlentities($text);
+
         $receiverId = $_POST['receiverSelection'];
+        $receiverId = htmlentities($receiverId);
+
         $senderId = $_SESSION['user'];
         $date = $date = date("d.m.y H:i:s");
 

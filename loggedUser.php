@@ -6,7 +6,6 @@ require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
 require_once 'src/showSideBar.php';
 
-
 session_start();
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
@@ -30,6 +29,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 <?php showSideBar::SideBar();
 
 $result = Tweet::loadAllTweets($connection);
+
 foreach($result as $value) {
     $name=$value->getuserId();
     $id = $value->getId();

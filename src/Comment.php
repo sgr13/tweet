@@ -79,6 +79,8 @@ class Comment
 
     static public function loadAllCommentsByPostId(mysqli $connection, $tweetId)
     {
+        $tweetId = intval($tweetId);
+
         $sql = "SELECT * FROM comment c LEFT JOIN user u ON u.id = c.user_id WHERE tweet_id=$tweetId ORDER BY creation_date DESC LIMIT 20 ";
 
         $table = [];
@@ -114,8 +116,12 @@ class Comment
         if ($this->id == -1) {
             $comment = $this->comment;
             $creationDate = $this->creationDate;
+
             $userId = $this->userId;
+            $userId = intval($userId);
+
             $tweetId = $this->tweetId;
+            $tweetId = intval($tweetId);
 
             $sql = "INSERT INTO comment(user_id, tweet_id, creation_date, comment) VALUES('$userId', '$tweetId', '$creationDate', '$comment')";
 

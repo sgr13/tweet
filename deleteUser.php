@@ -5,7 +5,6 @@ require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
 require_once 'src/Message.php';
 
-
 session_start();
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {

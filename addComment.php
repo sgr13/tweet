@@ -18,7 +18,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale = 1">
 
-    <title>Tweeterek</title>
+    <title>Twiterek</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css?h=1" rel="stylesheet">
     <script src="js/jquery.js"></script>
@@ -38,6 +38,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
+                $id = htmlentities($id);
                 ?>
                 <form action="commentCreation.php" method="post">
                     <p>Wpisz swój komentarz(max. il. znaków : 60)</p>
