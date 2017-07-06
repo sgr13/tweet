@@ -8,6 +8,7 @@ class User
     private $username;
     private $email;
     private $password;
+
     public function __construct()
     {
         $this->id = -1;
@@ -31,6 +32,31 @@ class User
         $this->password = $password;
     }
 
+    function getPassword()
+    {
+        return $this->password;
+    }
+
+    function getId()
+    {
+        return $this->id;
+    }
+
+    function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function setHash($hash)
+    {
+        $this->password = $hash;
+    }
+
+    function getUsername()
+    {
+        return $this->username;
+    }
+
     public function save(mysqli $connection)
     {
         if (-1 === $this->id) {
@@ -41,7 +67,7 @@ class User
             );
 
             $result = $connection->query($sql);
-            if($result) {
+            if ($result) {
                 $this->id = $connection->insert_id;
             } else {
                 die("Error: user not saved: " . $connection->error);
@@ -55,7 +81,7 @@ class User
             $sql = "UPDATE user SET username ='$username', password='$password' WHERE id=$id";
             $result = $connection->query($sql);
 
-            if($result == true){
+            if ($result == true) {
                 return true;
             }
             return false;
@@ -111,30 +137,4 @@ class User
         }
         return false;
     }
-
-    function getPassword()
-    {
-        return $this->password;
-    }
-
-    function getId()
-    {
-        return $this->id;
-    }
-
-    function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function setHash($hash)
-    {
-        $this->password = $hash;
-    }
-
-    function getUsername()
-    {
-        return $this->username;
-    }
-
 }
