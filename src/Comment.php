@@ -3,16 +3,12 @@
 class Comment
 {
     private $id;
-
     private $userId;
-
     private $tweetId;
-
     private $creationDate;
-
     private $comment;
 
-    function __construct()
+    public function __construct()
     {
         $this->id = -1;
         $this->userId = '';
@@ -74,11 +70,8 @@ class Comment
     public static function loadAllCommentsByPostId(mysqli $connection, $tweetId)
     {
         $tweetId = intval($tweetId);
-
         $sql = "SELECT * FROM comment c LEFT JOIN user u ON u.id = c.user_id WHERE tweet_id=$tweetId ORDER BY creation_date DESC LIMIT 20 ";
-
         $table = [];
-
         $result = $connection->query($sql);
 
         if($result == true && $result->num_rows != 0){
@@ -89,17 +82,16 @@ class Comment
                 $newComment->comment = $row['comment'];
                 $newComment->creationDate = $row['creation_date'];
                 $newComment->tweetId = $row['tweet_id'];
-
                 $table[] = $newComment;
             }
             return $table;
+
         } else {
             $newComment = new Comment();
             $newComment->userId = '';
             $newComment->comment = '';
             $newComment->creationDate = '';
             $newComment->tweetId = '';
-
             $table[] = $newComment;
             return $table;
         }
@@ -110,19 +102,16 @@ class Comment
         if ($this->id == -1) {
             $comment = $this->comment;
             $creationDate = $this->creationDate;
-
             $userId = $this->userId;
             $userId = intval($userId);
-
             $tweetId = $this->tweetId;
             $tweetId = intval($tweetId);
 
             $sql = "INSERT INTO comment(user_id, tweet_id, creation_date, comment) VALUES('$userId', '$tweetId', '$creationDate', '$comment')";
-
             $result = $connection->query($sql);
 
             if($result) {
-                $this->id = $connection->insert_id;  //id ostatnio wstawionego wiersza.
+                $this->id = $connection->insert_id;
             } else {
                 die("Error: comment not saved: " . $connection->error);
             }

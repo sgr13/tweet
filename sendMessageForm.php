@@ -4,8 +4,7 @@ require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
-require_once 'src/showSideBar.php';
-
+require_once 'src/ShowLayout.php';
 
 session_start();
 
@@ -14,21 +13,11 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 }
 ?>
 <html>
-<head lang="pl">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale = 1">
-
-    <title>Tweeterek</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css?h=1" rel="stylesheet">
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/style.js"></script>
-</head>
+<?php ShowLayout::showHeadInMain(); ?>
 <body>
 <?php
-showSideBar::SideBar();
+ShowLayout::showSideBar();
+
 $sql = "SELECT * FROM user";
 $result = $connection->query($sql);
 
@@ -39,18 +28,17 @@ if (!$result) {
 <div id="container">
     <div id="mainUnlogged">
         <p>Wybierz adresata:</p>
-
         <form method="post" action="sendMessage.php">
             <select name="receiverSelection">
-                <?php foreach($result as $value) { ?>
+                <?php foreach ($result as $value) { ?>
                     <?php
                     if ($value['id'] == $_SESSION['user']) {
                         continue;
                     }
                     ?>
-                <option value="<?php echo $value['id'];?>">
-                    <?php  echo $value['username'];?>
-                </option>
+                    <option value="<?php echo $value['id']; ?>">
+                        <?php echo $value['username']; ?>
+                    </option>
                 <?php } ?>
             </select><br><br>
             <p>Wpisz swoją wiadomość:</p>

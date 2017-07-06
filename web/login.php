@@ -6,18 +6,13 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['username']) && isset($_POST['password'])) {
-        $username = $_POST['username'];
-        $username = htmlentities($username);
-
-        $password = $_POST['password'];
-        $password = htmlentities($password);
-
+        $username = mysqli_real_escape_string($connection, $_POST['username']);
+        $password = mysqli_real_escape_string($connection, $_POST['password']);
         $user = User::loadUserByUsername($connection, $username);
-
         $_SESSION['userId'] = $user->getId();
 
         if (FALSE === $user) {
-            echo '<p>Incorrect !username!</p>';
+            echo '<p>Niepoprawny login lub hasło</p>';
             exit;
         }
 
@@ -26,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['userName'] = $user->getUsername();
             header('Location: ../index.php');
         } else {
-            echo '<p>Incorrect !password</p>';
+            echo '<p>Niepoprawny login lub hasło</p>';
             exit;
         }
     }

@@ -4,8 +4,7 @@ require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
-require_once 'src/showSideBar.php';
-
+require_once 'src/ShowLayout.php';
 
 session_start();
 
@@ -14,21 +13,11 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 }
 ?>
 <html>
-<head lang="pl">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale = 1">
-
-    <title>Tweeterek</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css?h=1" rel="stylesheet">
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/style.js"></script>
-</head>
+<?php ShowLayout::showHeadInMain(); ?>
 <body>
 <?php
-showSideBar::SideBar();
+ShowLayout::showSideBar();
+
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     if (isset($_GET['name'])) {
         $user = User::loadUserByUsername($connection, $_GET['name']);
@@ -42,10 +31,8 @@ if (!isset($_GET['name'])) {
 foreach ($result as $value) {
     $id = $value->getId();
     ?>
-
     <div class="col-md-12" id="mainer">
         <div class="col-md-1">
-
         </div>
         <div class="col-md-8" id="rest">
             <div class="col-md-12">
@@ -75,23 +62,21 @@ foreach ($result as $value) {
                 Komentarze:
             </div>
             <?php
-
             $result2 = Comment::loadAllCommentsByPostId($connection, $id);
             ?>
             <div class="col-md-12" id="commentText">
                 <?php
                 foreach ($result2 as $value) {
                     ?>
-
                     <span>
-                <?php echo $value->getUserId(); ?><br>
-            </span>
+                        <?php echo $value->getUserId(); ?><br>
+                    </span>
                     <span>
-                <?php echo $value->getComment(); ?><br>
-            </span>
+                        <?php echo $value->getComment(); ?><br>
+                    </span>
                     <span>
-                <?php echo $value->getCreationDate(); ?><br>
-            </span>
+                        <?php echo $value->getCreationDate(); ?><br>
+                    </span>
                     <hr>
                 <?php } ?>
             </div>
@@ -100,9 +85,7 @@ foreach ($result as $value) {
                     <button>Dodaj</button>
                 </a>
             </div>
-
         </div>
-
     </div>
 <?php
 }

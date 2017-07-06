@@ -5,13 +5,9 @@ require_once 'connection.php';
 class User
 {
     private $id;
-
     private $username;
-
     private $email;
-
     private $password;
-
     public function __construct()
     {
         $this->id = -1;
@@ -57,24 +53,19 @@ class User
             $id = intval($id);
 
             $sql = "UPDATE user SET username ='$username', password='$password' WHERE id=$id";
-
             $result = $connection->query($sql);
 
             if($result == true){
                 return true;
             }
             return false;
-
         }
     }
 
     public static function loadUserByUsername(mysqli $conn, $username)
     {
-
         $username = $conn->real_escape_string($username);
-
         $sql = "SELECT * FROM `user` WHERE `username` = '$username'";
-
         $result = $conn->query($sql);
 
         if (!$result) {
@@ -83,9 +74,7 @@ class User
 
         if ($result->num_rows == 1) {
             $userArray = $result->fetch_assoc();
-
             $user = new User();
-
             $user->setId($userArray['id']);
             $user->setEmail($userArray['email']);
             $user->setUsername($userArray['username']);
@@ -93,9 +82,8 @@ class User
 
             return $user;
         } else {
-            return FALSE;
+            return false;
         }
-
     }
 
     public function delete(mysqli $connection)
@@ -103,7 +91,6 @@ class User
         if ($this->id != -1) {
 
             $this->id = intval($this->id);
-
             $sql = "DELETE FROM message WHERE sender_id=$this->id AND receiver_id=$this->id ";
             $result = $connection->query($sql);
 

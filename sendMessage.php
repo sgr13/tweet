@@ -5,7 +5,6 @@ require_once 'src/Tweet.php';
 require_once 'src/Comment.php';
 require_once 'src/Message.php';
 
-
 session_start();
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
@@ -14,12 +13,8 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['text']) && isset($_POST['receiverSelection'])) {
-        $text = $_POST['text'];
-        $text = htmlentities($text);
-
-        $receiverId = $_POST['receiverSelection'];
-        $receiverId = htmlentities($receiverId);
-
+        $text = mysqli_real_escape_string($connection, $_POST['text']);
+        $receiverId = intval($_POST['receiverSelection']);
         $senderId = $_SESSION['user'];
         $date = $date = date("d.m.y H:i:s");
 
@@ -29,10 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $message->setSenderId($senderId);
         $message->setStatus(0);
         $message->setCreationDate($date);
-
         $message->saveToDb($connection);
 
         header('Location: loggedUser.php');
-
     }
 }

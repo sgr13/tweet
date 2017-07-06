@@ -3,14 +3,11 @@
 class Tweet
 {
     private $id;
-
     private $userId;
-
     private $text;
-
     private $creationDate;
 
-    function __construct()
+    public function __construct()
     {
         $this->id = -1;
         $this->userId = '';
@@ -61,11 +58,8 @@ class Tweet
     public static function loadAllTweetsByUserId(mysqli $connection, $userIdd)
     {
         $userIdd = intval($userIdd);
-
         $sql = "SELECT * FROM user u LEFT JOIN tweet t ON u.id = t.user_id WHERE u.id=$userIdd ORDER BY creation_date DESC LIMIT 100";
-
         $table = [];
-
         $result = $connection->query($sql);
 
         if($result == true && $result->num_rows != 0){
@@ -75,20 +69,16 @@ class Tweet
                 $newTweet->userId = $row['username'];
                 $newTweet->text = $row['text'];
                 $newTweet->creationDate = $row['creation_date'];
-
                 $table[] = $newTweet;
             }
             return $table;
         }
-
     }
 
     public static function loadAllTweets(mysqli $connection)
     {
         $sql = "SELECT * FROM user u LEFT JOIN tweet t ON u.id = t.user_id ORDER BY creation_date DESC LIMIT 100 ";
-
         $table = [];
-
         $result = $connection->query($sql);
 
         if($result == true && $result->num_rows != 0){
@@ -98,7 +88,6 @@ class Tweet
                 $newTweet->userId = $row['username'];
                 $newTweet->text = $row['text'];
                 $newTweet->creationDate = $row['creation_date'];
-
                 $table[] = $newTweet;
             }
             return $table;
@@ -114,7 +103,6 @@ class Tweet
             $userId = intval($userId);
 
             $sql = "INSERT INTO tweet(user_id, text, creation_date) VALUES('$userId', '$text', '$creationDate')";
-
             $result = $connection->query($sql);
 
             if($result) {

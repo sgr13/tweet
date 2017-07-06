@@ -3,18 +3,13 @@
 class Message
 {
     private $id;
-
     private $senderId;
-
     private $receiverId;
-
     private $status;
-
     private $text;
-
     private $creationDate;
 
-    function __construct()
+    public function __construct()
     {
         $this->id = -1;
         $this->senderId = '';
@@ -84,16 +79,13 @@ class Message
         if ($this->id == -1) {
             $senderId = $this->senderId;
             $senderId = intval($senderId);
-
             $receiverId = $this->receiverId;
             $receiverId = intval($receiverId);
-
             $status = $this->status;
             $text = $this->text;
             $date = $this->creationDate;
 
             $sql = "INSERT INTO message(sender_id, receiver_id, status, text, creationDate) VALUES('$senderId', '$receiverId', '$status', '$text', '$date')";
-
             $result = $connection->query($sql);
 
             if($result) {
@@ -102,6 +94,5 @@ class Message
                 die("Error: wiadomość nie zapisana do bazy danych: " . $connection->error);
             }
         }
-
     }
 }

@@ -14,8 +14,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['id'])) {
         $id = $_POST['id'];
-        $id = htmlentities($id);
-
+        $id = intval($id);
         $date = date("d.m.y H:i:s");
         $userId = $_SESSION['user'];
 
@@ -24,12 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $comment->setComment($_POST['comment']);
         $comment->setCreationDate($date);
         $comment->setUserId($userId);
-
         $comment->saveToDB($connection);
-
         header('Location: loggedUser.php');
     }
 }
-
-
-?>

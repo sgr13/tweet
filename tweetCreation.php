@@ -11,24 +11,16 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['text'])) {
-
-        $text = $_POST['text'];
+        $text = mysqli_real_escape_string($connection, $_POST['text']);
         $date = date("d.m.y H:i:s");
-
-        $text = htmlentities($text);
-        $date = htmlentities($date);
-
         $tweet = new Tweet();
         $userId = $_SESSION['userId'];
 
         $tweet->setText($text);
         $tweet->setUserId($userId);
         $tweet->setCreationDate($date);
-
         $tweet->saveToDB($connection);
-
         $connection->close();
-
         header('Location: loggedUser.php');
     }
 }

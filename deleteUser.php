@@ -12,9 +12,6 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 }
 
 $userName = $_SESSION['userName'];
-
 $user = User::loadUserByUsername($connection, $userName);
-
 $user->delete($connection);
-
 header("Location: web/logout.php");

@@ -3,7 +3,7 @@
 require_once 'connection.php';
 require_once 'src/User.php';
 require_once 'src/Tweet.php';
-require_once 'src/showSideBar.php';
+require_once 'src/ShowLayout.php';
 
 session_start();
 
@@ -12,20 +12,9 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
 }
 ?>
 <html>
-<head lang="pl">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale = 1">
-
-    <title>Twitterek</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css?h=1" rel="stylesheet">
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/style.js"></script>
-</head>
+<?php ShowLayout::showHeadInMain(); ?>
 <body>
-<?php showSideBar::SideBar(); ?>
+<?php ShowLayout::showSideBar(); ?>
 <div id="messageDiv">
     <h3>Wiadomości wysłane:</h3>
     <?php
@@ -37,24 +26,28 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     if (!$result) {
         die ("Bład zapisu do bazy danych" . $connection->error);
     }
-
-    echo "<table>";
-    echo "<tr>";
-    echo "<th>Data</th><th>Adresat</th><th>Przeczytaj</th>";
-    echo "</tr>";
-    $i = 1;
-    foreach ($result as $value) {
-        $id = $value['id'];
-        echo "<tr>";
-        $id = $value['id'];
-        echo "<td>" . $value['creationDate'] . "</td><td>" . $value['username'] . "</td>";
-        echo "<td><a href='readMessage.php?id=$id'>Pokaż</a></td>";
-    }
-
-    echo "</table>";
     ?>
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Adresat</th>
+            <th>Przeczytaj</th>
+        </tr>
+        <?php
+        $i = 1;
+        foreach ($result as $value) {
+            $id = $value['id'];
+            ?>
+            <tr>
+                <td> <?php echo $value['creationDate'] ?></td>
+                <td> <?php echo $value['username'] ?></td>
+                <td><a href='readMessage.php?id=<?php echo $id; ?>'>Pokaż</a></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
 </div>
-
 <div id="messageDiv">
     <h3>Wiadomości odebrane:</h3>
     <?php
@@ -66,32 +59,43 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['userName'])) {
     if (!$result) {
         die ("Bład zapisu do bazy danych" . $connection->error);
     }
+    ?>
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Autor</th>
+            <th>Przeczytaj</th>
+            <th>Status</th>
+        </tr>
+        <?php
+        $i = 1;
+        foreach ($result as $value) {
+            $id = $value['id'];
+            ?>
+            <tr>
+                <td><?php echo $value['creationDate'] ?></td>
+                <td><?php echo $value['username'] ?></td>
+                <td><a href='readMessage.php?id=<?php echo $id;?>'>Pokaż</a></td>
+                <?php
+                if ($value['status'] == 0) {
+                    echo "<td>" . "<b> <span style = 'color: red'>Nieprzeczytane</span></b>" . "</td>";
+                } else {
+                    echo "<td>" . "<span style='color:green'>Przeczytane</span>" . "</td>";
+                }
 
-    echo "<table>";
-    echo "<tr>";
-    echo "<th>Data</th><th>Autor</th><th>Przeczytaj</th><th>Status</th>";
-    echo "</tr>";
-    $i = 1;
-    foreach ($result as $value) {
-        $id = $value['id'];
-        echo "<tr>";
-        $id = $value['id'];
-        echo "<td>" . $value['creationDate'] . "</td><td>" . $value['username'] . "</td>";
-        echo "<td><a href='readMessage.php?id=$id'>Pokaż</a></td>";
-        if ($value['status'] == 0) {
-            echo "<td>" . "<b> <span style = 'color: red'>Nieprzeczytane</span></b>" . "</td>";
-        } else {
-            echo "<td>" . "<span style='color:green'>Przeczytane</span>" . "</td>";
+                $sql = "UPDATE message SET status=1 WHERE id=$id";
+                $result = $connection->query($sql);
+
+                if (!$result) {
+                    die("Błąd zapisu do bazy danych" . $connection->error);
+                }
+                ?>
+            </tr>
+        <?php
         }
-
-        $sql = "UPDATE message SET status=1 WHERE id=$id";
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            die("Błąd zapisu do bazy danych" . $connection->error);
-        }
-    }
-    echo "</table>";
+        ?>
+    </table>
+    <?php
     $connection->close();
     ?>
 </div>
